@@ -1,0 +1,122 @@
+/* src/components/About.css */
+.about-section {
+  background-color: var(--off-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-content {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-blue);
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.water-ripple {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.about-image-inner {
+  position: relative;
+  z-index: 2;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.about-image-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.about-image:hover .about-image-inner img {
+  transform: scale(1.05);
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(18, 60, 100, 0.1);
+  animation: ripple 3s infinite;
+  z-index: 1;
+}
+
+.ripple-1 {
+  width: 100%;
+  padding-bottom: 100%;
+  top: 0;
+  left: 0;
+  animation-delay: 0s;
+}
+
+.ripple-2 {
+  width: 120%;
+  padding-bottom: 120%;
+  top: -10%;
+  left: -10%;
+  animation-delay: 1s;
+}
+
+.ripple-3 {
+  width: 140%;
+  padding-bottom: 140%;
+  top: -20%;
+  left: -20%;
+  animation-delay: 2s;
+}
+
+.section {
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  /* Or your preferred max width */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-text,
+  .about-image {
+    width: 100%;
+  }
+}
