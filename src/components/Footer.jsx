@@ -41,7 +41,6 @@ const Footer = () => {
         <div className="footer-contact">
           <h4>Contact Us</h4>
           <ul>
-            <li><FaPhone style={{ marginRight: '8px' }}/> +27 11 123 4567</li>
             <li><FaPhone style={{ marginRight: '8px' }}/> +27 69 821 4495</li>
             <li>
               <a
