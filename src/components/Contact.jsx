@@ -116,7 +116,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     className="whatsapp-link"
                   >
-                    +27 62 927 8818
+                    +27 67 927 8818
                   </a>
                 </p>
               </div>
