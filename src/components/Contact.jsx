@@ -1,7 +1,6 @@
 // src/components/Contact.jsx
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import {
   FaPhone,
   FaEnvelope,
@@ -11,34 +10,55 @@ import {
 } from 'react-icons/fa';
 import './Contact.css';
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xdkdlnwg';
+
 const Contact = () => {
-  const form = useRef();
+  const [formData, setFormData] = useState({
+    user_name: '',
+    user_email: '',
+    message: ''
+  });
   const [status, setStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const sendEmail = (e) => {
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const sendEmail = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    emailjs.sendForm(
-      'YOUR_EMAILJS_SERVICE_ID',
-      'YOUR_EMAILJS_TEMPLATE_ID',
-      form.current,
-      'YOUR_EMAILJS_USER_ID'
-    )
-    .then((result) => {
-      console.log(result.text);
-      setStatus('success');
-      form.current.reset();
-    })
-    .catch((error) => {
-      console.log(error.text);
+    setStatus(null);
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.user_name,
+          email: formData.user_email,
+          message: formData.message
+        })
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ user_name: '', user_email: '', message: '' });
+      } else {
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      console.error('Formspree Error:', error);
       setStatus('error');
-    })
-    .finally(() => {
+    } finally {
       setIsLoading(false);
       setTimeout(() => setStatus(null), 5000);
-    });
+    }
   };
 
   return (
@@ -82,20 +102,16 @@ const Contact = () => {
             
             {/* Email */}
             <div className="contact-detail">
-              <div className="contact-icon">
-                <FaEnvelope />
-              </div>
+              <div className="contact-icon"><FaEnvelope /></div>
               <div>
                 <h4>Email</h4>
-                <p>info@bluesourcewater.com</p>
+                <p>info@bluesourcewater.co.za</p>
               </div>
             </div>
             
             {/* Mobile */}
             <div className="contact-detail">
-              <div className="contact-icon">
-                <FaPhone />
-              </div>
+              <div className="contact-icon"><FaPhone /></div>
               <div>
                 <h4>Mobile</h4>
                 <p>+27 69 821 4495</p>
@@ -104,9 +120,7 @@ const Contact = () => {
             
             {/* WhatsApp */}
             <div className="contact-detail">
-              <div className="contact-icon">
-                <FaWhatsapp />
-              </div>
+              <div className="contact-icon"><FaWhatsapp /></div>
               <div>
                 <h4>WhatsApp</h4>
                 <p>
@@ -140,7 +154,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form ref={form} onSubmit={sendEmail}>
+            <form onSubmit={sendEmail}>
               <motion.div 
                 className="form-group"
                 initial={{ opacity: 0, y: 20 }}
@@ -154,6 +168,8 @@ const Contact = () => {
                   id="name" 
                   name="user_name" 
                   placeholder="Your name" 
+                  value={formData.user_name}
+                  onChange={handleChange}
                   required 
                 />
               </motion.div>
@@ -171,6 +187,8 @@ const Contact = () => {
                   id="email" 
                   name="user_email" 
                   placeholder="Your email" 
+                  value={formData.user_email}
+                  onChange={handleChange}
                   required 
                 />
               </motion.div>
@@ -188,6 +206,8 @@ const Contact = () => {
                   name="message" 
                   placeholder="How can we help you?" 
                   rows="5" 
+                  value={formData.message}
+                  onChange={handleChange}
                   required 
                 ></textarea>
               </motion.div>
