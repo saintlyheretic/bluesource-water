@@ -1,3 +1,5 @@
+// src/components/Services.jsx
+
 import React from 'react';
 import './Services.css';
 import { FaTruck, FaShieldAlt, FaHandsHelping } from 'react-icons/fa';
@@ -70,7 +72,7 @@ const benefits = [
 
 export default function Services() {
   return (
-    <section className="services-section">
+    <section id="services" className="services-section">
       <div className="services-wrapper">
         {/* Header */}
         <div className="services-header">
@@ -91,7 +93,7 @@ export default function Services() {
                 <div className="flip-back">
                   <h3>{s.title}</h3>
                   <ul>
-                    {s.features.map((f,i) => <li key={i}>{f}</li>)}
+                    {s.features.map((f, i) => <li key={i}>{f}</li>)}
                   </ul>
                   <a href="#contact" className="btn">Request A Service</a>
                 </div>
