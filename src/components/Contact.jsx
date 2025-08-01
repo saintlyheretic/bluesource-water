@@ -111,7 +111,7 @@ const Contact = () => {
                 <h4>WhatsApp</h4>
                 <p>
                   <a
-                    href="https://wa.me/27629278818"
+                    href="https://wa.me/27679278818"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="whatsapp-link"
